@@ -1,8 +1,8 @@
 package br.com.george.desafio_san_giorgio.domain.exception;
 
-public class ChargeNotFound extends RuntimeException {
+public class PaymentNotFound extends RuntimeException {
 
-    public ChargeNotFound(String message) {
+    public PaymentNotFound(String message) {
         super(message);
     }
 }

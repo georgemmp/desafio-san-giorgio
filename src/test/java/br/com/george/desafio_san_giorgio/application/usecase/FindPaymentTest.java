@@ -1,9 +1,12 @@
 package br.com.george.desafio_san_giorgio.application.usecase;
 
-import br.com.george.desafio_san_giorgio.application.gateway.SellerGateway;
-import br.com.george.desafio_san_giorgio.application.usecase.impl.FindSellerImpl;
+import br.com.george.desafio_san_giorgio.application.gateway.PaymentGateway;
+import br.com.george.desafio_san_giorgio.application.usecase.impl.FindPaymentImpl;
+import br.com.george.desafio_san_giorgio.domain.entity.Payment;
 import br.com.george.desafio_san_giorgio.domain.entity.Seller;
+import br.com.george.desafio_san_giorgio.domain.exception.PaymentNotFound;
 import br.com.george.desafio_san_giorgio.domain.exception.SellerNotFound;
+import br.com.george.desafio_san_giorgio.factory.PaymentFactory;
 import br.com.george.desafio_san_giorgio.factory.SellerFactory;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -22,28 +25,28 @@ import static org.mockito.Mockito.when;
 class FindPaymentTest {
 
     @InjectMocks
-    private FindSellerImpl findSeller;
+    private FindPaymentImpl findPayment;
 
     @Mock
-    private SellerGateway sellerGateway;
+    private PaymentGateway paymentGateway;
 
     private static final UUID CODE = UUID.randomUUID();
 
     @Test
     void shouldFindSellerByCode() {
-        Seller seller = SellerFactory.create(CODE.toString());
+        Payment payment = PaymentFactory.create(CODE.toString());
 
-        when(this.sellerGateway.findSellerByCode(anyString())).thenReturn(seller);
+        when(this.paymentGateway.findPaymentByCode(anyString())).thenReturn(payment);
 
-        var result = this.findSeller.execute(CODE.toString());
+        var result = this.findPayment.execute(CODE.toString());
 
         assertEquals(CODE.toString(), result.getCode());
     }
 
     @Test
     void shouldThrowNotFoundException() {
-        when(this.sellerGateway.findSellerByCode(anyString())).thenReturn(null);
+        when(this.paymentGateway.findPaymentByCode(anyString())).thenReturn(null);
 
-        assertThrows(SellerNotFound.class, () -> this.findSeller.execute(CODE.toString()));
+        assertThrows(PaymentNotFound.class, () -> this.findPayment.execute(CODE.toString()));
     }
 }
