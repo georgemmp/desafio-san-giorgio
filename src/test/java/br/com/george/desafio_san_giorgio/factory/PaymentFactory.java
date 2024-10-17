@@ -13,7 +13,7 @@ public class PaymentFactory {
         return Payment.builder()
                 .code(code)
                 .statusPayment(StatusPayment.FULL)
-                .value(BigDecimal.valueOf(100))
+                .amount(BigDecimal.valueOf(100))
                 .build();
     }
 
@@ -21,7 +21,7 @@ public class PaymentFactory {
         return Payment.builder()
                 .code(code)
                 .statusPayment(null)
-                .value(value)
+                .amount(value)
                 .build();
     }
 }

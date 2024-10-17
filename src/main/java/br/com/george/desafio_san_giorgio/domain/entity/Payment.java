@@ -13,16 +13,17 @@ public class Payment {
 
     private String code;
     @Setter private BigDecimal amountPaid;
-    private BigDecimal value;
+    private BigDecimal amount;
     private StatusPayment statusPayment;
     private Seller seller;
 
-    public void setStatusPaymentByValue(BigDecimal value) {
-        int compareValues = this.value.compareTo(value);
+    public void setStatusPaymentByAmount(BigDecimal value) {
+        int compareValues = this.amount.compareTo(value);
         switch (compareValues) {
             case -1 -> this.statusPayment = StatusPayment.PARTIAL;
             case 1 -> this.statusPayment = StatusPayment.OVERPAYMENT;
-            default -> this.statusPayment = StatusPayment.FULL;
+            case 0 -> this.statusPayment = StatusPayment.FULL;
+            default -> this.statusPayment = StatusPayment.PENDING;
         }
     }
 }

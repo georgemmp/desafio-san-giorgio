@@ -33,8 +33,8 @@ public class ConfirmPaymentsImpl implements ConfirmPayments {
     private Consumer<? super Payment> confirmPayment() {
         return item -> {
             var payment = this.findPayment.execute(item.getCode());
-            payment.setStatusPaymentByValue(item.getValue());
-            payment.setAmountPaid(item.getValue());
+            payment.setStatusPaymentByAmount(item.getAmount());
+            payment.setAmountPaid(item.getAmount());
             this.paymentGateway.updatePayment(payment);
         };
     }

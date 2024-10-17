@@ -1,0 +1,19 @@
+spring:
+  application:
+    name: desafio-san-giorgio
+  h2:
+    console:
+      enable: true
+  datasource:
+    url: jdbc:h2:mem:test
+    username: sa
+    password:
+    driverClassName: org.h2.Driver
+  jpa:
+    spring.jpa.database-platform: org.hibernate.dialect.H2Dialect
+    generate-ddl: true
+    hibernate.ddl-auto: none
+    defer-datasource-initialization: true
+  sql:
+    init:
+      mode: always
