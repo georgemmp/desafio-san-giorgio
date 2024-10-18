@@ -48,39 +48,42 @@ class ConfirmPaymentTest {
     @Test
     void confirmFullPayment() {
         var fullPayment = PaymentFactory.create(PAYMENT_VALUE, PAYMENT_CODE);
-        var originalPayment = PaymentFactory.create(PAYMENT_VALUE, PAYMENT_CODE);
-        var confirmation = PaymentConfirmationFactory.create(originalPayment);
+        var defaultPayment = PaymentFactory.create(PAYMENT_VALUE, PAYMENT_CODE);
+        defaultPayment.setPaymentStatus(PaymentStatus.FULL);
+        var confirmation = PaymentConfirmationFactory.create(fullPayment);
 
-        when(this.findPayment.execute(PAYMENT_CODE)).thenReturn(fullPayment);
-        when(this.paymentGateway.updatePayment(any(Payment.class))).thenReturn(fullPayment);
+        when(this.findPayment.execute(PAYMENT_CODE)).thenReturn(defaultPayment);
+        when(this.paymentGateway.updatePayment(any(Payment.class))).thenReturn(defaultPayment);
 
-        this.confirmPayments.execute(confirmation);
-        assertEquals(PaymentStatus.FULL, fullPayment.getPaymentStatus());
+        var result = this.confirmPayments.execute(confirmation);
+        result.getPayments().forEach(item -> assertEquals(PaymentStatus.FULL, item.getPaymentStatus()));
     }
 
     @Test
     void confirmPartialPayment() {
-        var partialPayment = PaymentFactory.create(BigDecimal.valueOf(50), PAYMENT_CODE);
-        var originalPayment = PaymentFactory.create(PAYMENT_VALUE, PAYMENT_CODE);
-        var confirmation = PaymentConfirmationFactory.create(originalPayment);
+        var partial = PaymentFactory.create(BigDecimal.valueOf(50), PAYMENT_CODE);
+        var defaultPayment = PaymentFactory.create(PAYMENT_VALUE, PAYMENT_CODE);
+        defaultPayment.setPaymentStatus(PaymentStatus.PARTIAL);
+        var confirmation = PaymentConfirmationFactory.create(partial);
 
-        when(this.findPayment.execute(PAYMENT_CODE)).thenReturn(partialPayment);
-        when(this.paymentGateway.updatePayment(any(Payment.class))).thenReturn(partialPayment);
+        when(this.findPayment.execute(PAYMENT_CODE)).thenReturn(defaultPayment);
+        when(this.paymentGateway.updatePayment(any(Payment.class))).thenReturn(defaultPayment);
 
-        this.confirmPayments.execute(confirmation);
-        assertEquals(PaymentStatus.PARTIAL, partialPayment.getPaymentStatus());
+        var result = this.confirmPayments.execute(confirmation);
+        result.getPayments().forEach(item -> assertEquals(PaymentStatus.PARTIAL, item.getPaymentStatus()));
     }
 
     @Test
     void confirmOverpayment() {
         var overpayment = PaymentFactory.create(BigDecimal.valueOf(150), PAYMENT_CODE);
-        var origianalPayment = PaymentFactory.create(PAYMENT_VALUE, PAYMENT_CODE);
-        var confirmation = PaymentConfirmationFactory.create(origianalPayment);
+        var defaultPayment = PaymentFactory.create(PAYMENT_VALUE, PAYMENT_CODE);
+        defaultPayment.setPaymentStatus(PaymentStatus.OVERPAYMENT);
+        var confirmation = PaymentConfirmationFactory.create(overpayment);
 
-        when(this.findPayment.execute(PAYMENT_CODE)).thenReturn(overpayment);
-        when(this.paymentGateway.updatePayment(any(Payment.class))).thenReturn(overpayment);
+        when(this.findPayment.execute(PAYMENT_CODE)).thenReturn(defaultPayment);
+        when(this.paymentGateway.updatePayment(any(Payment.class))).thenReturn(defaultPayment);
 
-        this.confirmPayments.execute(confirmation);
-        assertEquals(PaymentStatus.OVERPAYMENT, overpayment.getPaymentStatus());
+        var result = this.confirmPayments.execute(confirmation);
+        result.getPayments().forEach(item -> assertEquals(PaymentStatus.OVERPAYMENT, item.getPaymentStatus()));
     }
 }
