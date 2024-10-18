@@ -1,6 +1,6 @@
 package br.com.george.desafio_san_giorgio.infrastructure.data.entity;
 
-import br.com.george.desafio_san_giorgio.domain.type.StatusPayment;
+import br.com.george.desafio_san_giorgio.domain.type.PaymentStatus;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -28,7 +28,7 @@ public class PaymentEntity implements Serializable {
 
     @Column(name = "status_payment")
     @Enumerated(EnumType.STRING)
-    private StatusPayment statusPayment;
+    private PaymentStatus paymentStatus;
 
     @ManyToOne
     @JoinColumn(name = "saller_code", nullable = false)

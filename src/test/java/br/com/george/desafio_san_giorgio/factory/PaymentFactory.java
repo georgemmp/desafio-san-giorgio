@@ -1,7 +1,7 @@
 package br.com.george.desafio_san_giorgio.factory;
 
 import br.com.george.desafio_san_giorgio.domain.entity.Payment;
-import br.com.george.desafio_san_giorgio.domain.type.StatusPayment;
+import br.com.george.desafio_san_giorgio.domain.type.PaymentStatus;
 
 import java.math.BigDecimal;
 
@@ -12,7 +12,7 @@ public class PaymentFactory {
     public static Payment create(String code) {
         return Payment.builder()
                 .code(code)
-                .statusPayment(StatusPayment.FULL)
+                .paymentStatus(PaymentStatus.FULL)
                 .amount(BigDecimal.valueOf(100))
                 .build();
     }
@@ -20,7 +20,7 @@ public class PaymentFactory {
     public static Payment create(BigDecimal value, String code) {
         return Payment.builder()
                 .code(code)
-                .statusPayment(null)
+                .paymentStatus(null)
                 .amount(value)
                 .build();
     }

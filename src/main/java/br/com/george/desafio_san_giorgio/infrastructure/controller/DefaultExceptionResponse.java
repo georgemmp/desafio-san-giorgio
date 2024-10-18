@@ -1,4 +1,4 @@
-package br.com.george.desafio_san_giorgio.infrastructure.controller.response;
+package br.com.george.desafio_san_giorgio.infrastructure.controller;
 
 public record DefaultExceptionResponse(
         String message,

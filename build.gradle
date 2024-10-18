@@ -26,6 +26,7 @@ repositories {
 ext {
 	set('lombokVersion', '1.18.32')
 	set('mapstructVersion', '1.5.5.Final')
+	set('openapiVersion', '2.6.0')
 }
 
 dependencies {
@@ -43,6 +44,8 @@ dependencies {
 	testAnnotationProcessor "org.projectlombok:lombok:${lombokVersion}"
 	implementation "org.mapstruct:mapstruct:${mapstructVersion}"
 	annotationProcessor "org.mapstruct:mapstruct-processor:${mapstructVersion}"
+
+	implementation "org.springdoc:springdoc-openapi-starter-webmvc-ui:${openapiVersion}"
 }
 
 tasks.named('test') {

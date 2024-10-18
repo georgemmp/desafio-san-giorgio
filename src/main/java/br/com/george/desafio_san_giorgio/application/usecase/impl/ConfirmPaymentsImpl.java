@@ -10,7 +10,7 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.function.Consumer;
+import java.util.function.Function;
 
 @Service
 @RequiredArgsConstructor
@@ -22,20 +22,26 @@ public class ConfirmPaymentsImpl implements ConfirmPayments {
 
     @Override
     @Transactional
-    public void execute(PaymentConfirmation paymentConfirmation) {
+    public PaymentConfirmation execute(PaymentConfirmation paymentConfirmation) {
         this.findSeller.execute(paymentConfirmation.getSellerCode());
 
         var payments = paymentConfirmation.getPayments();
 
-        payments.parallelStream().forEach(this.confirmPayment());
+        var updatedPayments = payments.stream().map(this.confirmPayment()).toList();
+
+        return PaymentConfirmation.builder()
+                .sellerCode(paymentConfirmation.getSellerCode())
+                .payments(updatedPayments)
+                .build();
+
     }
 
-    private Consumer<? super Payment> confirmPayment() {
+    private Function<Payment, Payment> confirmPayment() {
         return item -> {
             var payment = this.findPayment.execute(item.getCode());
             payment.setStatusPaymentByAmount(item.getAmount());
             payment.setAmountPaid(item.getAmount());
-            this.paymentGateway.updatePayment(payment);
+            return this.paymentGateway.updatePayment(payment);
         };
     }
 }

@@ -3,7 +3,7 @@ package br.com.george.desafio_san_giorgio.application.usecase;
 import br.com.george.desafio_san_giorgio.application.gateway.PaymentGateway;
 import br.com.george.desafio_san_giorgio.application.usecase.impl.ConfirmPaymentsImpl;
 import br.com.george.desafio_san_giorgio.domain.entity.Payment;
-import br.com.george.desafio_san_giorgio.domain.type.StatusPayment;
+import br.com.george.desafio_san_giorgio.domain.type.PaymentStatus;
 import br.com.george.desafio_san_giorgio.factory.PaymentConfirmationFactory;
 import br.com.george.desafio_san_giorgio.factory.PaymentFactory;
 import br.com.george.desafio_san_giorgio.factory.SellerFactory;
@@ -55,7 +55,7 @@ class ConfirmPaymentTest {
         when(this.paymentGateway.updatePayment(any(Payment.class))).thenReturn(fullPayment);
 
         this.confirmPayments.execute(confirmation);
-        assertEquals(StatusPayment.FULL, fullPayment.getStatusPayment());
+        assertEquals(PaymentStatus.FULL, fullPayment.getPaymentStatus());
     }
 
     @Test
@@ -68,7 +68,7 @@ class ConfirmPaymentTest {
         when(this.paymentGateway.updatePayment(any(Payment.class))).thenReturn(partialPayment);
 
         this.confirmPayments.execute(confirmation);
-        assertEquals(StatusPayment.PARTIAL, partialPayment.getStatusPayment());
+        assertEquals(PaymentStatus.PARTIAL, partialPayment.getPaymentStatus());
     }
 
     @Test
@@ -81,6 +81,6 @@ class ConfirmPaymentTest {
         when(this.paymentGateway.updatePayment(any(Payment.class))).thenReturn(overpayment);
 
         this.confirmPayments.execute(confirmation);
-        assertEquals(StatusPayment.OVERPAYMENT, overpayment.getStatusPayment());
+        assertEquals(PaymentStatus.OVERPAYMENT, overpayment.getPaymentStatus());
     }
 }

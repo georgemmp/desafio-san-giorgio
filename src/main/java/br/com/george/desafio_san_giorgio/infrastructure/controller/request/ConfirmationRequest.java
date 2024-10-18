@@ -4,11 +4,11 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.List;
 
-public record ConfirmationResponse(
+public record ConfirmationRequest(
         @JsonProperty("seller_id")
         String sellerCode,
 
         @JsonProperty("payment_items")
-        List<PaymentItemResponse> paymentItemResponses
+        List<PaymentItemRequest> paymentItemRequests
 ) {
 }
