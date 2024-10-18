@@ -8,7 +8,6 @@ import org.mapstruct.Mapping;
 @Mapper(componentModel = "spring")
 public interface PaymentMapper {
 
-//    @Mapping(target = "seller", ignore = true)
     Payment toDomain(PaymentEntity paymentEntity);
     PaymentEntity toEntity(Payment payment);
 }

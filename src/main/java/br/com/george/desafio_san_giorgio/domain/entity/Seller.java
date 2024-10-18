@@ -14,5 +14,4 @@ import java.util.List;
 public class Seller {
 
     private String code;
-//    private List<Payment> paymentsToReceive;
 }
