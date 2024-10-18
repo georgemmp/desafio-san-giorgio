@@ -1,6 +1,7 @@
 package br.com.george.desafio_san_giorgio.infrastructure.controller;
 
 import br.com.george.desafio_san_giorgio.application.usecase.ConfirmPayments;
+import br.com.george.desafio_san_giorgio.infrastructure.controller.openapi.PaymentControllerDocumentation;
 import br.com.george.desafio_san_giorgio.infrastructure.controller.request.ConfirmationRequest;
 import br.com.george.desafio_san_giorgio.infrastructure.controller.response.ConfirmationResponse;
 import br.com.george.desafio_san_giorgio.infrastructure.mapper.PaymentConfirmationMapper;
@@ -12,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/api/payment")
 @RequiredArgsConstructor
-public class PaymentController {
+public class PaymentController implements PaymentControllerDocumentation {
 
     private final PaymentConfirmationMapper mapper;
     private final ConfirmPayments confirmPayments;
