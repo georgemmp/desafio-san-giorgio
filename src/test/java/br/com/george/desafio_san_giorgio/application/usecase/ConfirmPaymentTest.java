@@ -1,6 +1,7 @@
 package br.com.george.desafio_san_giorgio.application.usecase;
 
 import br.com.george.desafio_san_giorgio.application.gateway.PaymentGateway;
+import br.com.george.desafio_san_giorgio.application.gateway.SendPaymentMessage;
 import br.com.george.desafio_san_giorgio.application.usecase.impl.ConfirmPaymentsImpl;
 import br.com.george.desafio_san_giorgio.domain.entity.Payment;
 import br.com.george.desafio_san_giorgio.domain.type.PaymentStatus;
@@ -32,6 +33,9 @@ class ConfirmPaymentTest {
     @Mock
     private PaymentGateway paymentGateway;
 
+    @Mock
+    private SendPaymentMessage sendPaymentMessage;
+
     @InjectMocks
     private ConfirmPaymentsImpl confirmPayments;
 
@@ -53,6 +57,7 @@ class ConfirmPaymentTest {
         var confirmation = PaymentConfirmationFactory.create(fullPayment);
 
         when(this.findPayment.execute(PAYMENT_CODE)).thenReturn(defaultPayment);
+        doNothing().when(this.sendPaymentMessage).execute(defaultPayment);
         when(this.paymentGateway.updatePayment(any(Payment.class))).thenReturn(defaultPayment);
 
         var result = this.confirmPayments.execute(confirmation);
@@ -67,6 +72,7 @@ class ConfirmPaymentTest {
         var confirmation = PaymentConfirmationFactory.create(partial);
 
         when(this.findPayment.execute(PAYMENT_CODE)).thenReturn(defaultPayment);
+        doNothing().when(this.sendPaymentMessage).execute(defaultPayment);
         when(this.paymentGateway.updatePayment(any(Payment.class))).thenReturn(defaultPayment);
 
         var result = this.confirmPayments.execute(confirmation);
@@ -81,6 +87,7 @@ class ConfirmPaymentTest {
         var confirmation = PaymentConfirmationFactory.create(overpayment);
 
         when(this.findPayment.execute(PAYMENT_CODE)).thenReturn(defaultPayment);
+        doNothing().when(this.sendPaymentMessage).execute(defaultPayment);
         when(this.paymentGateway.updatePayment(any(Payment.class))).thenReturn(defaultPayment);
 
         var result = this.confirmPayments.execute(confirmation);

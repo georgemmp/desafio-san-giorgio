@@ -17,3 +17,7 @@ spring:
   sql:
     init:
       mode: always
+
+aws:
+  sqs.uri: http://localhost:9325/
+  queue: http://localhost:9325/queue/payment

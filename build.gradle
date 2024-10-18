@@ -27,6 +27,7 @@ ext {
 	set('lombokVersion', '1.18.32')
 	set('mapstructVersion', '1.5.5.Final')
 	set('openapiVersion', '2.6.0')
+	set('springCloudAws', '3.0.1')
 }
 
 dependencies {
@@ -46,6 +47,9 @@ dependencies {
 	annotationProcessor "org.mapstruct:mapstruct-processor:${mapstructVersion}"
 
 	implementation "org.springdoc:springdoc-openapi-starter-webmvc-ui:${openapiVersion}"
+
+	implementation platform("io.awspring.cloud:spring-cloud-aws-dependencies:${springCloudAws}")
+	implementation 'io.awspring.cloud:spring-cloud-aws-starter-sqs'
 }
 
 tasks.named('test') {
