@@ -20,7 +20,7 @@ public class PaymentController implements PaymentControllerDocumentation {
 
     @PutMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)
-    public ConfirmationResponse confirmPaymet(@RequestBody ConfirmationRequest request) {
+    public ConfirmationResponse confirmPayment(@RequestBody ConfirmationRequest request) {
         var paymentConfirmation = this.mapper.toDomain(request);
         var result = this.confirmPayments.execute(paymentConfirmation);
         return this.mapper.toResponse(result);

@@ -28,5 +28,5 @@ public interface PaymentControllerDocumentation {
                     })
             }
     )
-    ConfirmationResponse confirmPaymet(@RequestBody ConfirmationRequest request);
+    ConfirmationResponse confirmPayment(@RequestBody ConfirmationRequest request);
 }
