@@ -33,7 +33,6 @@ public class ConfirmPaymentsImpl implements ConfirmPayments {
                 .sellerCode(paymentConfirmation.getSellerCode())
                 .payments(updatedPayments)
                 .build();
-
     }
 
     private Function<Payment, Payment> confirmPayment() {

@@ -2,7 +2,7 @@ package br.com.george.desafio_san_giorgio.infrastructure.controller.exception;
 
 import br.com.george.desafio_san_giorgio.domain.exception.PaymentNotFound;
 import br.com.george.desafio_san_giorgio.domain.exception.SellerNotFound;
-import br.com.george.desafio_san_giorgio.infrastructure.controller.DefaultExceptionResponse;
+import br.com.george.desafio_san_giorgio.infrastructure.controller.response.DefaultExceptionResponse;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
