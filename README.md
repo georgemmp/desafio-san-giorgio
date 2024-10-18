@@ -3,7 +3,7 @@
 ``` text
 O desafio foi feito com Java 17, Spring Boot 3.3.4 e Gradle 8.10.2.
 
-A API está rodando na porta padrão 8080, utilizando o banco H2 e para execução do SQS há um docker-compose, 
+A API está rodando na porta padrão 8080, utilizando o banco H2 e para execução do SQS há um docker-compose
 na raiz do projeto, para ser executado localmente. O SQS está executando localmente na porta 9325 e é preciso criar uma fila com nome payment.
 ```
 
